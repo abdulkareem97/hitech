@@ -9,6 +9,11 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { useAuth } from 'src/auth'
+import Dropzone from 'react-dropzone'
+import { useState } from 'react'
+import axios from 'axios'
+import { toast } from '@redwoodjs/web/dist/toast'
+
 
 const formatDatetime = (value) => {
   if (value) {
@@ -17,12 +22,45 @@ const formatDatetime = (value) => {
 }
 
 const AdmissionFormForm = (props) => {
-  const {currentUser} = useAuth()
-  const onSubmit = (data) => {
+  const { currentUser } = useAuth()
+
+  const [photo, setPhoto] = useState(null)
+
+  const [photoDataURL, setPhotoDataURL] = useState(null)
+
+  const handlePhotoDrop = (acceptedFiles) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      setPhotoDataURL(reader.result)
+    }
+    reader.readAsDataURL(acceptedFiles[0])
+    setPhoto(acceptedFiles[0])
+  }
+
+
+  const onSubmit = async (data) => {
     data['added_by'] = currentUser.email
     data['fee_paid'] = 0
     data['balance_fee'] = data.course_fee
-    props.onSave(data, props?.admissionForm?.id)
+    const formData = new FormData();
+    formData.append("file", photo);
+    formData.append("fileName", photo.name);
+    try {
+      const res = await axios.post(
+        "http://localhost:1234/upload",
+        formData
+      );
+
+      const imgUrl = res.data.imgUrl
+      console.log(res.data.imgUrl);
+      data['photo'] = imgUrl
+      props.onSave(data, props?.admissionForm?.id)
+    } catch (ex) {
+      toast.error('Unable to Upload Picture')
+
+      console.log(ex);
+    }
+    // props.onSave(data, props?.admissionForm?.id)
   }
 
   return (
@@ -53,7 +91,19 @@ const AdmissionFormForm = (props) => {
 
         <FieldError name="student_name" className="rw-field-error" />
 
-        <Label
+        <Dropzone onDrop={handlePhotoDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p>Drag and drop a photo here, or click to select a photo</p>
+            </div>
+          )}
+        </Dropzone>
+        {photoDataURL && (
+          <img src={photoDataURL} alt="Selected photo preview" />
+        )}
+
+        {/* <Label
           name="photo"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
@@ -69,7 +119,7 @@ const AdmissionFormForm = (props) => {
           validation={{ required: true }}
         />
 
-        <FieldError name="photo" className="rw-field-error" />
+        <FieldError name="photo" className="rw-field-error" /> */}
 
         <Label
           name="father_name"

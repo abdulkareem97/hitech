@@ -37,6 +37,10 @@ const AdmissionForm = ({ admissionForm }) => {
             AdmissionForm {admissionForm.id} Detail
           </h2>
         </header>
+
+        <div className='flex justify-center'>
+          <img src={admissionForm.photo} alt="loading" srcset="" className='w-52 h-52 rounded-full' />
+        </div>
         <table className="rw-table">
           <tbody>
             <tr>
