@@ -14,6 +14,9 @@ export const schema = gql`
     email: String!
     selected_course: String!
     branchId: Int!
+    added_by: String!
+    created_at: DateTime!
+    updated_at: DateTime!
   }
 
   type Query {
@@ -34,6 +37,7 @@ export const schema = gql`
     email: String!
     selected_course: String!
     branchId: Int!
+    added_by: String!
   }
 
   input UpdateEnquiryFormInput {
@@ -49,6 +53,7 @@ export const schema = gql`
     email: String
     selected_course: String
     branchId: Int
+    added_by: String
   }
 
   type Mutation {

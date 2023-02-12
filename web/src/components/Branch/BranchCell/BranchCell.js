@@ -5,6 +5,9 @@ export const QUERY = gql`
     branch: branch(id: $id) {
       id
       name
+      added_by
+      created_at
+      updated_at
     }
   }
 `

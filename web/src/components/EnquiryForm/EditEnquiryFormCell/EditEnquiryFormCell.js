@@ -21,6 +21,9 @@ export const QUERY = gql`
       email
       selected_course
       branchId
+      added_by
+      created_at
+      updated_at
     }
   }
 `
@@ -43,6 +46,9 @@ const UPDATE_ENQUIRY_FORM_MUTATION = gql`
       email
       selected_course
       branchId
+      added_by
+      created_at
+      updated_at
     }
   }
 `

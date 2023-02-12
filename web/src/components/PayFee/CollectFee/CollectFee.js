@@ -2,12 +2,14 @@ import { toast } from '@redwoodjs/web/toast'
 import { useState } from "react"
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
+import { useAuth } from 'src/auth'
 
 
 const UPDATE_ADMISSION_FORM_MUTATION = gql`
   mutation UpdateAdmissionFormMutation(
     $id: Int!
-    $input: UpdateAdmissionFormInput!
+    $input: UpdateAdmissionFormInput!,
+    $feeInput: CreateFeeDetailInput!
   ) {
     updateAdmissionForm(id: $id, input: $input) {
       id
@@ -15,10 +17,15 @@ const UPDATE_ADMISSION_FORM_MUTATION = gql`
       fee_paid
       balance_fee
     }
+    createFeeDetail(input: $feeInput){
+      id
+    }
   }
+
 `
 
 const CollectFee = ({ stdDetail }) => {
+  const {currentUser} = useAuth()
   const [updateAdmissionForm, { loading, error }] = useMutation(
     UPDATE_ADMISSION_FORM_MUTATION,
     {
@@ -54,7 +61,13 @@ const CollectFee = ({ stdDetail }) => {
 
     }
 
-    updateAdmissionForm({ variables: { id:stdDetail.id, input } })
+    const feeInput = {
+      admissionFormId: stdDetail.id,
+      fee_collected: Number(feeCollect),
+      collected_by: currentUser.email
+    }
+
+    updateAdmissionForm({ variables: { id:stdDetail.id, input,feeInput } })
 
 
 

@@ -18,11 +18,11 @@ const ResetPasswordPage = ({ resetToken }) => {
     useAuth()
   const [enabled, setEnabled] = useState(true)
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate(routes.home())
+  //   }
+  // }, [isAuthenticated])
 
   useEffect(() => {
     const validateToken = async () => {

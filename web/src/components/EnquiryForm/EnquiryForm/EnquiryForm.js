@@ -91,6 +91,18 @@ const EnquiryForm = ({ enquiryForm }) => {
               <th>Branch id</th>
               <td>{enquiryForm.branchId}</td>
             </tr>
+            <tr>
+              <th>Added by</th>
+              <td>{enquiryForm.added_by}</td>
+            </tr>
+            <tr>
+              <th>Created at</th>
+              <td>{timeTag(enquiryForm.created_at)}</td>
+            </tr>
+            <tr>
+              <th>Updated at</th>
+              <td>{timeTag(enquiryForm.updated_at)}</td>
+            </tr>
           </tbody>
         </table>
       </div>

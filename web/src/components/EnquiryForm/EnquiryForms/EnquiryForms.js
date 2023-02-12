@@ -52,6 +52,9 @@ const EnquiryFormsList = ({ enquiryForms }) => {
             <th>Email</th>
             <th>Selected course</th>
             <th>Branch id</th>
+            <th>Added by</th>
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -71,6 +74,9 @@ const EnquiryFormsList = ({ enquiryForms }) => {
               <td>{truncate(enquiryForm.email)}</td>
               <td>{truncate(enquiryForm.selected_course)}</td>
               <td>{truncate(enquiryForm.branchId)}</td>
+              <td>{truncate(enquiryForm.added_by)}</td>
+              <td>{timeTag(enquiryForm.created_at)}</td>
+              <td>{timeTag(enquiryForm.updated_at)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

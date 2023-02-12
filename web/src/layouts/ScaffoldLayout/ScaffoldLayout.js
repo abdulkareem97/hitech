@@ -7,6 +7,7 @@ const ScaffoldLayout = ({
   buttonLabel,
   buttonTo,
   children,
+  hidden
 }) => {
   return (
     <div className="rw-scaffold">
@@ -17,7 +18,7 @@ const ScaffoldLayout = ({
             {title}
           </Link>
         </h1>
-        <Link to={routes[buttonTo]()} className="rw-button rw-button-green">
+        <Link to={routes[buttonTo]()} className={`rw-button rw-button-green ${hidden==='true' ? 'hidden':''}`}>
           <div className="rw-button-icon">+</div> {buttonLabel}
         </Link>
       </header>

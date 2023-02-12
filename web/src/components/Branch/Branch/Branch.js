@@ -2,7 +2,7 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import 'src/lib/formatters'
+import { timeTag } from 'src/lib/formatters'
 
 const DELETE_BRANCH_MUTATION = gql`
   mutation DeleteBranchMutation($id: Int!) {
@@ -46,6 +46,18 @@ const Branch = ({ branch }) => {
             <tr>
               <th>Name</th>
               <td>{branch.name}</td>
+            </tr>
+            <tr>
+              <th>Added by</th>
+              <td>{branch.added_by}</td>
+            </tr>
+            <tr>
+              <th>Created at</th>
+              <td>{timeTag(branch.created_at)}</td>
+            </tr>
+            <tr>
+              <th>Updated at</th>
+              <td>{timeTag(branch.updated_at)}</td>
             </tr>
           </tbody>
         </table>

@@ -23,9 +23,6 @@ export const updateAdmissionForm = ({ id, input }) => {
   })
 }
 
-
-
-
 export const deleteAdmissionForm = ({ id }) => {
   return db.admissionForm.delete({
     where: { id },
@@ -35,5 +32,8 @@ export const deleteAdmissionForm = ({ id }) => {
 export const AdmissionForm = {
   brach_name: (_obj, { root }) => {
     return db.admissionForm.findUnique({ where: { id: root?.id } }).brach_name()
+  },
+  FeeDetails: (_obj, { root }) => {
+    return db.admissionForm.findUnique({ where: { id: root?.id } }).FeeDetails()
   },
 }

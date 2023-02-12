@@ -1,5 +1,3 @@
-// import { gql, Upload } from '@redwoodjs/api'
-
 export const schema = gql`
   type AdmissionForm {
     id: Int!
@@ -21,6 +19,10 @@ export const schema = gql`
     course_fee: Float!
     fee_paid: Float!
     balance_fee: Float!
+    added_by: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    FeeDetails: [Int]!
   }
 
   type Query {
@@ -46,6 +48,7 @@ export const schema = gql`
     course_fee: Float!
     fee_paid: Float!
     balance_fee: Float!
+    added_by: String!
   }
 
   input UpdateAdmissionFormInput {
@@ -66,8 +69,8 @@ export const schema = gql`
     course_fee: Float
     fee_paid: Float
     balance_fee: Float
+    added_by: String
   }
-
 
   type Mutation {
     createAdmissionForm(input: CreateAdmissionFormInput!): AdmissionForm!

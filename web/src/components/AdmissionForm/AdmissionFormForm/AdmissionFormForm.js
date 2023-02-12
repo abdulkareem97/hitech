@@ -8,10 +8,7 @@ import {
   NumberField,
   Submit,
 } from '@redwoodjs/forms'
-import axios from 'axios'
-import { useState } from 'react'
-import Dropzone from 'react-dropzone'
-
+import { useAuth } from 'src/auth'
 
 const formatDatetime = (value) => {
   if (value) {
@@ -20,99 +17,12 @@ const formatDatetime = (value) => {
 }
 
 const AdmissionFormForm = (props) => {
-
-
-  const [photo, setPhoto] = useState(null)
-
-  const [photoDataURL, setPhotoDataURL] = useState(null)
-
-const handlePhotoDrop = (acceptedFiles) => {
-  const reader = new FileReader()
-  reader.onload = () => {
-    setPhotoDataURL(reader.result)
-  }
-  reader.readAsDataURL(acceptedFiles[0])
-  setPhoto(acceptedFiles[0])
-}
-
-
-  const onSubmit = async (data) => {
-    try {
-
-      console.log('hello')
-
-      console.log('here 2')
-      // const baseUrl = window.location.origin
-
-      // const contentLength = formData.toString().length;
-      // const headers = {
-      //   'Content-Length': contentLength
-      // };
-
-      console.log(photo)
-
-      const pic = {
-        'file':photo
-      }
-
-      // const response = await fetch(`/.redwood/functions/upload`, {
-      //   method: 'POST',
-      //   body: formData,
-      //   headers: headers,
-      // })
-
-      const formData = new FormData()
-      formData.append('file', photo)
-      formData.append('filename', photo.name)
-      const headers = new Headers();
-headers.delete('Content-Length'); // Remove the Content-Length header
-
-      // const response = await axios.post(`/.redwood/functions/upload`,formData ,{
-      //   headers: { 'Content-Type': 'multipart/form-data' },
-      // })
-      const contentLength = 10 * 1024 * 1024; // 10 MB in bytes
-
-      const response = await axios.post('/.redwood/functions/practise', formData,{
-        headers:{
-          "Content-Length":formData.length
-        }
-      })
-      console.log('here 3')
-
-      // console.log(response)
-
-
-      // if (!response.ok) {
-      //   throw new Error(`Failed to upload file: ${response.statusText}`)
-      // }
-
-      const data = await response.data
-      console.log(data)
-
-      // const postData = {
-      //   title: data.title,
-      //   photoUrl: `/static/${filename}`,
-      // }
-
-      // const response = await fetch('/api/posts', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ input: postData }),
-      // })
-
-      // if (!response.ok) {
-      //   throw new Error(`Failed to create post: ${response.statusText}`)
-      // }
-
-      // navigate(routes.home())
-    } catch (error) {
-      console.error('this is error ',error)
-    }
-
-    // props.onSave(data, props?.admissionForm?.id)
-
+  const {currentUser} = useAuth()
+  const onSubmit = (data) => {
+    data['added_by'] = currentUser.email
+    data['fee_paid'] = 0
+    data['balance_fee'] = data.course_fee
+    props.onSave(data, props?.admissionForm?.id)
   }
 
   return (
@@ -142,18 +52,6 @@ headers.delete('Content-Length'); // Remove the Content-Length header
         />
 
         <FieldError name="student_name" className="rw-field-error" />
-
-        <Dropzone onDrop={handlePhotoDrop}>
-      {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          <p>Drag and drop a photo here, or click to select a photo</p>
-        </div>
-      )}
-    </Dropzone>
-    {photoDataURL && (
-      <img src={photoDataURL} alt="Selected photo preview" />
-    )}
 
         <Label
           name="photo"
@@ -407,7 +305,7 @@ headers.delete('Content-Length'); // Remove the Content-Length header
 
         <FieldError name="course_fee" className="rw-field-error" />
 
-        <Label
+        {/* <Label
           name="fee_paid"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
@@ -442,6 +340,24 @@ headers.delete('Content-Length'); // Remove the Content-Length header
         />
 
         <FieldError name="balance_fee" className="rw-field-error" />
+
+        <Label
+          name="added_by"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Added by
+        </Label>
+
+        <TextField
+          name="added_by"
+          defaultValue={props.admissionForm?.added_by}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+        />
+
+        <FieldError name="added_by" className="rw-field-error" /> */}
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

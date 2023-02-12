@@ -10,6 +10,9 @@ export const QUERY = gql`
     branch: branch(id: $id) {
       id
       name
+      added_by
+      created_at
+      updated_at
     }
   }
 `
@@ -18,6 +21,9 @@ const UPDATE_BRANCH_MUTATION = gql`
     updateBranch(id: $id, input: $input) {
       id
       name
+      added_by
+      created_at
+      updated_at
     }
   }
 `

@@ -3,7 +3,7 @@ import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Branch/BranchesCell'
-import { truncate } from 'src/lib/formatters'
+import { timeTag, truncate } from 'src/lib/formatters'
 
 const DELETE_BRANCH_MUTATION = gql`
   mutation DeleteBranchMutation($id: Int!) {
@@ -41,6 +41,9 @@ const BranchesList = ({ branches }) => {
           <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Added by</th>
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -49,6 +52,9 @@ const BranchesList = ({ branches }) => {
             <tr key={branch.id}>
               <td>{truncate(branch.id)}</td>
               <td>{truncate(branch.name)}</td>
+              <td>{truncate(branch.added_by)}</td>
+              <td>{timeTag(branch.created_at)}</td>
+              <td>{timeTag(branch.updated_at)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

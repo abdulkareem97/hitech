@@ -27,10 +27,16 @@ describe('branches', () => {
 
   scenario('creates a branch', async () => {
     const result = await createBranch({
-      input: { name: 'String' },
+      input: {
+        name: 'String',
+        added_by: 'String',
+        updated_at: '2023-02-12T11:19:47.319Z',
+      },
     })
 
     expect(result.name).toEqual('String')
+    expect(result.added_by).toEqual('String')
+    expect(result.updated_at).toEqual(new Date('2023-02-12T11:19:47.319Z'))
   })
 
   scenario('updates a branch', async (scenario) => {

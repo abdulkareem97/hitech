@@ -57,6 +57,9 @@ const AdmissionFormsList = ({ admissionForms }) => {
             <th>Course fee</th>
             <th>Fee paid</th>
             <th>Balance fee</th>
+            <th>Added by</th>
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -81,6 +84,9 @@ const AdmissionFormsList = ({ admissionForms }) => {
               <td>{truncate(admissionForm.course_fee)}</td>
               <td>{truncate(admissionForm.fee_paid)}</td>
               <td>{truncate(admissionForm.balance_fee)}</td>
+              <td>{truncate(admissionForm.added_by)}</td>
+              <td>{timeTag(admissionForm.created_at)}</td>
+              <td>{timeTag(admissionForm.updated_at)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

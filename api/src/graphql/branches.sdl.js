@@ -4,49 +4,10 @@ export const schema = gql`
     name: String!
     EnquiryForm: [EnquiryForm]!
     admissionForm: [AdmissionForm]!
-    # EnquiryForm: [Int]!
-    # admissionForm: [Int]!
+    added_by: String!
+    created_at: DateTime!
+    updated_at: DateTime!
   }
-
-
-  type EnquiryForm {
-    id: Int!
-    brach_name: Branch!
-    student_name: String!
-    photo: String!
-    father_name: String!
-    mother_name: String!
-    dob: DateTime!
-    address: String!
-    father_occupation: String!
-    qualification: String!
-    mobile_no: String!
-    email: String!
-    selected_course: String!
-    branchId: Int!
-  }
-  type AdmissionForm {
-    id: Int!
-    brach_name: Branch!
-    student_name: String!
-    photo: String!
-    father_name: String!
-    mother_name: String!
-    dob: DateTime!
-    address: String!
-    father_occupation: String!
-    qualification: String!
-    mobile_no: String!
-    email: String!
-    selected_course: String!
-    branchId: Int!
-    date_of_joining: DateTime!
-    date_of_ending: DateTime!
-    course_fee: Float!
-    fee_paid: Float!
-    balance_fee: Float!
-  }
-
 
   type Query {
     branches: [Branch!]! @requireAuth
@@ -55,10 +16,12 @@ export const schema = gql`
 
   input CreateBranchInput {
     name: String!
+    added_by: String!
   }
 
   input UpdateBranchInput {
     name: String
+    added_by: String
   }
 
   type Mutation {

@@ -20,7 +20,11 @@ const Routes = () => {
     <Router useAuth={useAuth}>
 
 
-      <Route path="/profile" page={ProfilePage} name="profile" />
+
+
+
+
+
 
 
       <Route path="/login" page={LoginPage} name="login" />
@@ -41,6 +45,8 @@ const Routes = () => {
         <Set wrap={DashboardLayout}>
 
           <Route path="/" page={HomePage} name="home" />
+          <Route path="/profile" page={ProfilePage} name="profile" />
+
 
 
 
@@ -68,6 +74,13 @@ const Routes = () => {
             <Route path="/admission-forms/{id:Int}/edit" page={AdmissionFormEditAdmissionFormPage} name="editAdmissionForm" />
             <Route path="/admission-forms/{id:Int}" page={AdmissionFormAdmissionFormPage} name="admissionForm" />
             <Route path="/admission-forms" page={AdmissionFormAdmissionFormsPage} name="admissionForms" />
+          </Set>
+
+          <Set wrap={ScaffoldLayout} title="FeeDetails" titleTo="feeDetails" buttonLabel="New FeeDetail" buttonTo="newFeeDetail" hidden='true'>
+            <Route path="/fee-details/new" page={FeeDetailNewFeeDetailPage} name="newFeeDetail" />
+            <Route path="/fee-details/{id:Int}/edit" page={FeeDetailEditFeeDetailPage} name="editFeeDetail" />
+            <Route path="/fee-details/{id:Int}" page={FeeDetailFeeDetailPage} name="feeDetail" />
+            <Route path="/fee-details" page={FeeDetailFeeDetailsPage} name="feeDetails" />
           </Set>
 
 

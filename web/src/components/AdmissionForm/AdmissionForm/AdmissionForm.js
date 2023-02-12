@@ -111,6 +111,18 @@ const AdmissionForm = ({ admissionForm }) => {
               <th>Balance fee</th>
               <td>{admissionForm.balance_fee}</td>
             </tr>
+            <tr>
+              <th>Added by</th>
+              <td>{admissionForm.added_by}</td>
+            </tr>
+            <tr>
+              <th>Created at</th>
+              <td>{timeTag(admissionForm.created_at)}</td>
+            </tr>
+            <tr>
+              <th>Updated at</th>
+              <td>{timeTag(admissionForm.updated_at)}</td>
+            </tr>
           </tbody>
         </table>
       </div>

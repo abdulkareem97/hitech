@@ -32,7 +32,7 @@ describe('enquiryForms', () => {
         photo: 'String',
         father_name: 'String',
         mother_name: 'String',
-        dob: '2023-02-10T22:25:31.245Z',
+        dob: '2023-02-12T11:31:43.981Z',
         address: 'String',
         father_occupation: 'String',
         qualification: 'String',
@@ -40,6 +40,8 @@ describe('enquiryForms', () => {
         email: 'String',
         selected_course: 'String',
         branchId: scenario.enquiryForm.two.branchId,
+        added_by: 'String',
+        updated_at: '2023-02-12T11:31:43.981Z',
       },
     })
 
@@ -47,7 +49,7 @@ describe('enquiryForms', () => {
     expect(result.photo).toEqual('String')
     expect(result.father_name).toEqual('String')
     expect(result.mother_name).toEqual('String')
-    expect(result.dob).toEqual(new Date('2023-02-10T22:25:31.245Z'))
+    expect(result.dob).toEqual(new Date('2023-02-12T11:31:43.981Z'))
     expect(result.address).toEqual('String')
     expect(result.father_occupation).toEqual('String')
     expect(result.qualification).toEqual('String')
@@ -55,6 +57,8 @@ describe('enquiryForms', () => {
     expect(result.email).toEqual('String')
     expect(result.selected_course).toEqual('String')
     expect(result.branchId).toEqual(scenario.enquiryForm.two.branchId)
+    expect(result.added_by).toEqual('String')
+    expect(result.updated_at).toEqual(new Date('2023-02-12T11:31:43.981Z'))
   })
 
   scenario('updates a enquiryForm', async (scenario) => {

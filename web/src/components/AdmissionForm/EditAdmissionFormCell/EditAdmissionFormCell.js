@@ -26,6 +26,9 @@ export const QUERY = gql`
       course_fee
       fee_paid
       balance_fee
+      added_by
+      created_at
+      updated_at
     }
   }
 `
@@ -53,6 +56,9 @@ const UPDATE_ADMISSION_FORM_MUTATION = gql`
       course_fee
       fee_paid
       balance_fee
+      added_by
+      created_at
+      updated_at
     }
   }
 `

@@ -7,6 +7,9 @@ export const QUERY = gql`
     branches {
       id
       name
+      added_by
+      created_at
+      updated_at
     }
   }
 `

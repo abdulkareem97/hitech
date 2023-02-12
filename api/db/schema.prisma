@@ -11,17 +11,20 @@ generator client {
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
 // TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-}
+// model UserExample {
+//   id    Int     @id @default(autoincrement())
+//   email String  @unique
+//   name  String?
+// }
 
 model Branch {
   id            Int             @id @default(autoincrement())
   name          String
   EnquiryForm   EnquiryForm[]
   admissionForm AdmissionForm[]
+  added_by      String
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
 }
 
 model EnquiryForm {
@@ -39,11 +42,24 @@ model EnquiryForm {
   email             String
   selected_course   String
   branchId          Int
+  added_by          String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model FeeDetail {
+  id              Int           @id @default(autoincrement())
+  admissionFrom   AdmissionForm @relation(fields: [admissionFormId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  admissionFormId Int
+  fee_collected   Float
+  collected_by    String
+  collected_at    DateTime      @default(now())
 }
 
 model AdmissionForm {
-  id                Int      @id @default(autoincrement())
-  brach_name        Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id                Int         @id @default(autoincrement())
+  brach_name        Branch      @relation(fields: [branchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   student_name      String
   photo             String
   father_name       String
@@ -61,6 +77,10 @@ model AdmissionForm {
   course_fee        Float
   fee_paid          Float
   balance_fee       Float
+  added_by          String
+  created_at        DateTime    @default(now())
+  updated_at        DateTime    @updatedAt
+  FeeDetails        FeeDetail[]
 }
 
 model User {
