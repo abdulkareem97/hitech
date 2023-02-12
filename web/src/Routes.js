@@ -7,11 +7,79 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route } from '@redwoodjs/router'
+import { Router, Route, Set, Private } from '@redwoodjs/router'
+
+import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
+import DashboardLayout from './layouts/DashboardLayout/DashboardLayout'
+import PayfeeLayout from './layouts/PayfeeLayout/PayfeeLayout'
+
+import { useAuth } from './auth'
 
 const Routes = () => {
   return (
-    <Router>
+    <Router useAuth={useAuth}>
+
+
+      <Route path="/profile" page={ProfilePage} name="profile" />
+
+
+      <Route path="/login" page={LoginPage} name="login" />
+
+
+      <Route path="/signup" page={SignupPage} name="signup" />
+
+
+      <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
+
+
+      <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
+
+      <Private unauthenticated='login' >
+
+
+
+        <Set wrap={DashboardLayout}>
+
+          <Route path="/" page={HomePage} name="home" />
+
+
+
+          <Set wrap={PayfeeLayout} title="Pay Fee" titleTo="getDetail">
+            <Route path="/std-detail/{id:Int}" page={PayFeeStdDetailPage} name="stdDetail" />
+            <Route path="/get-detail" page={PayFeeGetDetailPage} name="getDetail" />
+
+          </Set>
+          <Set wrap={ScaffoldLayout} title="Branches" titleTo="branches" buttonLabel="New Branch" buttonTo="newBranch">
+            <Route path="/branches/new" page={BranchNewBranchPage} name="newBranch" />
+            <Route path="/branches/{id:Int}/edit" page={BranchEditBranchPage} name="editBranch" />
+            <Route path="/branches/{id:Int}" page={BranchBranchPage} name="branch" />
+            <Route path="/branches" page={BranchBranchesPage} name="branches" />
+          </Set>
+
+          <Set wrap={ScaffoldLayout} title="EnquiryForms" titleTo="enquiryForms" buttonLabel="New EnquiryForm" buttonTo="newEnquiryForm">
+            <Route path="/enquiry-forms/new" page={EnquiryFormNewEnquiryFormPage} name="newEnquiryForm" />
+            <Route path="/enquiry-forms/{id:Int}/edit" page={EnquiryFormEditEnquiryFormPage} name="editEnquiryForm" />
+            <Route path="/enquiry-forms/{id:Int}" page={EnquiryFormEnquiryFormPage} name="enquiryForm" />
+            <Route path="/enquiry-forms" page={EnquiryFormEnquiryFormsPage} name="enquiryForms" />
+          </Set>
+
+          <Set wrap={ScaffoldLayout} title="AdmissionForms" titleTo="admissionForms" buttonLabel="New AdmissionForm" buttonTo="newAdmissionForm">
+            <Route path="/admission-forms/new" page={AdmissionFormNewAdmissionFormPage} name="newAdmissionForm" />
+            <Route path="/admission-forms/{id:Int}/edit" page={AdmissionFormEditAdmissionFormPage} name="editAdmissionForm" />
+            <Route path="/admission-forms/{id:Int}" page={AdmissionFormAdmissionFormPage} name="admissionForm" />
+            <Route path="/admission-forms" page={AdmissionFormAdmissionFormsPage} name="admissionForms" />
+          </Set>
+
+
+
+
+
+
+
+        </Set>
+      </Private>
+
+      {/* <Route path="/" page={HomePage} name="home" /> */}
       <Route notfound page={NotFoundPage} />
     </Router>
   )
