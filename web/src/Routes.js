@@ -19,41 +19,30 @@ const Routes = () => {
   return (
     <Router useAuth={useAuth}>
 
-
-
-
-
-
-
-
-
       <Route path="/login" page={LoginPage} name="login" />
 
-
-      <Route path="/signup" page={SignupPage} name="signup" />
-
-
       <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
-
-
       <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
 
       <Private unauthenticated='login' >
-
-
 
         <Set wrap={DashboardLayout}>
 
           <Route path="/" page={HomePage} name="home" />
           <Route path="/profile" page={ProfilePage} name="profile" />
 
-
-
-
           <Set wrap={PayfeeLayout} title="Pay Fee" titleTo="getDetail">
             <Route path="/std-detail/{id:Int}" page={PayFeeStdDetailPage} name="stdDetail" />
             <Route path="/get-detail" page={PayFeeGetDetailPage} name="getDetail" />
 
+          </Set>
+
+          <Set wrap={ScaffoldLayout} title="Users" titleTo="users" buttonLabel="New User" buttonTo="signup">
+            <Route path="/users/new" page={UserNewUserPage} name="newUser" />
+            <Route path="/users/{id:Int}/edit" page={UserEditUserPage} name="editUser" />
+            <Route path="/users/{id:Int}" page={UserUserPage} name="user" />
+            <Route path="/users" page={UserUsersPage} name="users" />
+            <Route path="/signup" page={SignupPage} name="signup" />
           </Set>
           <Set wrap={ScaffoldLayout} title="Branches" titleTo="branches" buttonLabel="New Branch" buttonTo="newBranch">
             <Route path="/branches/new" page={BranchNewBranchPage} name="newBranch" />

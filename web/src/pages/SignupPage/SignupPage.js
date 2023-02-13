@@ -19,11 +19,11 @@ import { useAuth } from 'src/auth'
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate(routes.home())
+  //   }
+  // }, [isAuthenticated])
 
   // focus on username box on page load
   const usernameRef = useRef(null)
@@ -36,7 +36,8 @@ const SignupPage = () => {
     console.log(data)
     const response = await signUp({
       username: data.username,
-      password: data.password,
+      // password: data.password,
+      password: 'edu123',
       roles: data.roles
     })
 
@@ -88,7 +89,7 @@ const SignupPage = () => {
 
                   <FieldError name="username" className="rw-field-error" />
 
-                  <Label
+                  {/* <Label
                     name="password"
                     className="rw-label"
                     errorClassName="rw-label rw-label-error"
@@ -108,7 +109,7 @@ const SignupPage = () => {
                     }}
                   />
 
-                  <FieldError name="password" className="rw-field-error" />
+                  <FieldError name="password" className="rw-field-error" /> */}
 
                   <Label
                     name="roles"
@@ -148,12 +149,12 @@ const SignupPage = () => {
               </div>
             </div>
           </div>
-          <div className="rw-login-link">
+          {/* <div className="rw-login-link">
             <span>Already have an account?</span>{' '}
             <Link to={routes.login()} className="rw-link">
               Log in!
             </Link>
-          </div>
+          </div> */}
         </div>
       </main>
     </>

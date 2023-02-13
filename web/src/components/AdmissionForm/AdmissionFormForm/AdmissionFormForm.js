@@ -65,7 +65,27 @@ const AdmissionFormForm = (props) => {
 
   return (
     <div className="rw-form-wrapper">
+
+      <div className='flex justify-center mt-3' >
+        <Dropzone onDrop={handlePhotoDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              {/* <p>Drag and drop a photo here, or click to select a photo</p> */}
+              {photoDataURL && (
+                <img src={photoDataURL} alt="Selected photo preview" className='w-52 h-52 rounded-full' />
+              )}
+              {!photoDataURL && (
+                <img src={'/drag.webp'} alt="Selected photo preview" className='' />
+              )}
+            </div>
+          )}
+        </Dropzone>
+
+      </div>
       <Form onSubmit={onSubmit} error={props.error}>
+
+
         <FormError
           error={props.error}
           wrapperClassName="rw-form-error-wrapper"
@@ -91,35 +111,10 @@ const AdmissionFormForm = (props) => {
 
         <FieldError name="student_name" className="rw-field-error" />
 
-        <Dropzone onDrop={handlePhotoDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Drag and drop a photo here, or click to select a photo</p>
-            </div>
-          )}
-        </Dropzone>
-        {photoDataURL && (
+
+        {/* {photoDataURL && (
           <img src={photoDataURL} alt="Selected photo preview" />
-        )}
-
-        {/* <Label
-          name="photo"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Photo
-        </Label>
-
-        <TextField
-          name="photo"
-          defaultValue={props.admissionForm?.photo}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-
-        <FieldError name="photo" className="rw-field-error" /> */}
+        )} */}
 
         <Label
           name="father_name"
